@@ -6,7 +6,8 @@
     "away": "FK Benešov",
     "phase": "15. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "9b3b7352-cf31-46af-b463-6802e8860705"
   },
   {
     "date": "7. 11. 2026",
@@ -15,7 +16,8 @@
     "away": "FC Písek",
     "phase": "14. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "f6288c22-8e28-4814-a7d1-b72a03d57ce8"
   },
   {
     "date": "30. 10. 2026",
@@ -24,7 +26,8 @@
     "away": "SK Aritma Praha",
     "phase": "13. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "491c1286-b04b-411e-9f23-5c00143f2b67"
   },
   {
     "date": "25. 10. 2026",
@@ -33,7 +36,8 @@
     "away": "FC Písek",
     "phase": "12. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "946bdb03-6855-445d-8e0d-188bf04c0013"
   },
   {
     "date": "18. 10. 2026",
@@ -42,7 +46,8 @@
     "away": "FC Písek",
     "phase": "11. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "8b93c3ad-bdc6-4fdc-a9b3-7cc9a6367761"
   },
   {
     "date": "9. 10. 2026",
@@ -51,7 +56,8 @@
     "away": "FC Viktoria Plzeň B",
     "phase": "10. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "f7910e26-6485-4f4d-8a32-fa62452eaeb9"
   },
   {
     "date": "4. 10. 2026",
@@ -60,7 +66,8 @@
     "away": "FC Písek",
     "phase": "9. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "ed4ac632-2654-4379-90bf-db0c128236ed"
   },
   {
     "date": "25. 9. 2026",
@@ -69,7 +76,8 @@
     "away": "1.FK Příbram FA B",
     "phase": "8. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "312f0bdd-4104-4297-8b44-1f18294ad75f"
   },
   {
     "date": "20. 9. 2026",
@@ -78,7 +86,8 @@
     "away": "FC Písek",
     "phase": "7. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "9364c1eb-3b15-4366-9783-15811ce2c06a"
   },
   {
     "date": "11. 9. 2026",
@@ -87,7 +96,8 @@
     "away": "SK Dynamo České Budějovice",
     "phase": "6. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "de47212f-95f9-4913-804c-49eadafc0995"
   },
   {
     "date": "5. 9. 2026",
@@ -96,7 +106,8 @@
     "away": "FC Písek",
     "phase": "5. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "da2946fe-6755-4bb4-ba43-98443fdf29d5"
   },
   {
     "date": "30. 8. 2026",
@@ -105,7 +116,8 @@
     "away": "FK Motorlet Praha",
     "phase": "4. kolo",
     "us": "home",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "f7595d23-2f3d-4991-ac9a-3350a46f3ea3"
   },
   {
     "date": "22. 8. 2026",
@@ -133,6 +145,597 @@
     "away": "FC Písek",
     "phase": "1. kolo",
     "us": "away",
-    "season": "2026/2027"
+    "season": "2026/2027",
+    "embed": "113e791d-6658-4b2b-bf4f-5b12864e12bd"
+  },
+  {
+    "date": "5. 6. 2026",
+    "time": "16:00",
+    "home": "FK Dukla Praha B",
+    "away": "FC Písek",
+    "phase": "31. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "1038ccc4-552f-41b7-a545-64cb38dbe947"
+  },
+  {
+    "date": "29. 5. 2026",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "SK Kladno",
+    "phase": "30. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "97778621-567d-4b34-a738-e8c5e7e7c6fc"
+  },
+  {
+    "date": "24. 5. 2026",
+    "time": "14:00",
+    "home": "SK PETŘÍN PLZEŇ",
+    "away": "FC Písek",
+    "phase": "29. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "329b2f60-a24b-4569-9958-5da1dc1d26bf"
+  },
+  {
+    "date": "20. 5. 2026",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FK Králův Dvůr",
+    "phase": "34. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "4586ea7a-ff6d-40e5-b069-ec0d07f8811c"
+  },
+  {
+    "date": "15. 5. 2026",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "SK Slavia Praha - fotbal",
+    "phase": "28. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "95c2b0c3-da5b-41fa-9d87-1025a405b438"
+  },
+  {
+    "date": "9. 5. 2026",
+    "time": "10:15",
+    "home": "FK Motorlet Praha",
+    "away": "FC Písek",
+    "phase": "27. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "e99afe7d-efb4-4a19-a496-4adc69e429c8"
+  },
+  {
+    "date": "6. 5. 2026",
+    "time": "16:30",
+    "home": "Bohemians Praha 1905 B",
+    "away": "FC Písek",
+    "phase": "33. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "7539d7c3-f5b2-46f4-b583-18aa83be3a9f"
+  },
+  {
+    "date": "2. 5. 2026",
+    "time": "10:00",
+    "home": "1.FK Příbram FA B",
+    "away": "FC Písek",
+    "phase": "26. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "32106733-c123-4ef0-b87a-647cabb5bd41"
+  },
+  {
+    "date": "25. 4. 2026",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FK Loko Praha",
+    "phase": "25. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "8847b30c-dd00-4eab-8f06-84efacfa4408"
+  },
+  {
+    "date": "18. 4. 2026",
+    "time": "17:00",
+    "home": "TJ Jiskra Domažlice",
+    "away": "FC Písek",
+    "phase": "24. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "068003ca-a6c5-4d4d-897a-d06a2d911821"
+  },
+  {
+    "date": "11. 4. 2026",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FK Admira Praha",
+    "phase": "23. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "cd966865-26e9-4b3e-b5f2-ebbb8d0b8583"
+  },
+  {
+    "date": "3. 4. 2026",
+    "time": "16:00",
+    "home": "Sokol Hostouň",
+    "away": "FC Písek",
+    "phase": "22. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "936c8ba7-7c57-4b91-b494-89e207961111"
+  },
+  {
+    "date": "21. 3. 2026",
+    "time": "10:30",
+    "home": "SK Dynamo Č. Budějovice B",
+    "away": "FC Písek",
+    "phase": "20. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "4d83d004-9963-4ddb-a6f9-b4f98288fc71"
+  },
+  {
+    "date": "13. 3. 2026",
+    "time": "19:00",
+    "home": "FC Písek",
+    "away": "SK Aritma Praha",
+    "phase": "19. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "33bee679-2fde-41a2-9442-3680e5791ecd"
+  },
+  {
+    "date": "7. 3. 2026",
+    "time": "10:15",
+    "home": "FC Táborsko akademie",
+    "away": "FC Písek",
+    "phase": "18. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "5f64bbb5-f979-4938-a135-c70849632b0d"
+  },
+  {
+    "date": "28. 2. 2026",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FC Viktoria Plzeň B",
+    "phase": "32. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "4aab3748-6518-490b-9eb1-cbbb03f1f43d"
+  },
+  {
+    "date": "21. 11. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "Bohemians Praha 1905 B",
+    "phase": "16. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "0379dc1c-bb56-4a6d-95fa-11ae79190245"
+  },
+  {
+    "date": "16. 11. 2025",
+    "time": "10:30",
+    "home": "FC Viktoria Plzeň B",
+    "away": "FC Písek",
+    "phase": "15. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "45966eae-1236-42f7-93c3-cb22b8b6ae90"
+  },
+  {
+    "date": "7. 11. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FK Dukla Praha B",
+    "phase": "14. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "5ad10c54-f7ab-45de-90e8-88bbacc50df8"
+  },
+  {
+    "date": "1. 11. 2025",
+    "time": "14:00",
+    "home": "SK Kladno",
+    "away": "FC Písek",
+    "phase": "13. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "32fc204e-1f6a-4383-9065-5334a05a33ab"
+  },
+  {
+    "date": "24. 10. 2025",
+    "time": "18:30",
+    "home": "FC Písek",
+    "away": "SK PETŘÍN PLZEŇ",
+    "phase": "12. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "6686c372-7b6d-40dd-9d3c-397e20625e7d"
+  },
+  {
+    "date": "18. 10. 2025",
+    "time": "10:15",
+    "home": "SK Slavia Praha - fotbal",
+    "away": "FC Písek",
+    "phase": "11. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "838cf508-e14a-4754-ba47-202afbc4ffb3"
+  },
+  {
+    "date": "11. 10. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FK Motorlet Praha",
+    "phase": "10. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "09c75754-affd-45af-b2ae-635be2b89145"
+  },
+  {
+    "date": "4. 10. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "1.FK Příbram FA B",
+    "phase": "9. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "11453b92-4f86-4ff7-8549-ce0bf93dfd42"
+  },
+  {
+    "date": "27. 9. 2025",
+    "time": "10:15",
+    "home": "FK Loko Praha",
+    "away": "FC Písek",
+    "phase": "8. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "b6fe4d17-b6d3-4d19-9ef4-2d197ab66dbb"
+  },
+  {
+    "date": "19. 9. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "TJ Jiskra Domažlice",
+    "phase": "7. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "a095f307-0495-4c6b-a5ff-39d9237fabe8"
+  },
+  {
+    "date": "14. 9. 2025",
+    "time": "10:15",
+    "home": "FK Admira Praha",
+    "away": "FC Písek",
+    "phase": "6. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "2d9d8499-402e-477b-91a2-849f046144ec"
+  },
+  {
+    "date": "10. 9. 2025",
+    "time": "17:00",
+    "home": "FK Králův Dvůr",
+    "away": "FC Písek",
+    "phase": "17. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "34b1d63f-1718-4888-b0c8-902e69f39a8e"
+  },
+  {
+    "date": "5. 9. 2025",
+    "time": "18:30",
+    "home": "FC Písek",
+    "away": "Sokol Hostouň",
+    "phase": "5. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "8f5afe4b-f9f0-43b5-b799-086cbaf159fd"
+  },
+  {
+    "date": "23. 8. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "SK Dynamo Č. Budějovice B",
+    "phase": "3. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "8215c88b-6688-4a98-8c1b-8484cc888fe1"
+  },
+  {
+    "date": "16. 8. 2025",
+    "time": "10:15",
+    "home": "SK Aritma Praha",
+    "away": "FC Písek",
+    "phase": "2. kolo",
+    "us": "away",
+    "season": "2025/2026",
+    "embed": "13e3f43d-ef67-4e61-9665-dc7e1e7c4ed8"
+  },
+  {
+    "date": "9. 8. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FC Táborsko akademie",
+    "phase": "1. kolo",
+    "us": "home",
+    "season": "2025/2026",
+    "embed": "682857c9-853c-4043-b5cd-f7893aead487"
+  },
+  {
+    "date": "4. 6. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "SK Dynamo Č. Budějovice B",
+    "phase": "31. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "5b61fd72-cb05-4227-8843-b1924e14814c"
+  },
+  {
+    "date": "30. 5. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FC Táborsko akademie",
+    "phase": "30. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "acd46bdc-81d0-4189-a544-cdc30ea23f20"
+  },
+  {
+    "date": "24. 5. 2025",
+    "time": "10:15",
+    "home": "SK PETŘÍN PLZEŇ",
+    "away": "FC Písek",
+    "phase": "29. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "2cbc3844-22f5-4d5e-a7ca-b00e2291acaa"
+  },
+  {
+    "date": "16. 5. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "Bohemians Praha 1905 B",
+    "phase": "28. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "c02e7215-37a6-4fa2-98ae-d34a8ada96f0"
+  },
+  {
+    "date": "10. 5. 2025",
+    "time": "10:15",
+    "home": "FK Motorlet Praha",
+    "away": "FC Písek",
+    "phase": "27. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "d8129b26-d7f3-4848-a2bd-0ca014fcf27d"
+  },
+  {
+    "date": "7. 5. 2025",
+    "time": "17:30",
+    "home": "Sokol Hostouň",
+    "away": "FC Písek",
+    "phase": "32. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "a794b799-0795-4e50-aeba-0038fc58b124"
+  },
+  {
+    "date": "3. 5. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "TJ Slovan Velvary",
+    "phase": "26. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "880e2b6e-aee4-4467-9b49-e379669b930c"
+  },
+  {
+    "date": "25. 4. 2025",
+    "time": "18:00",
+    "home": "1.FK Příbram FA B",
+    "away": "FC Písek",
+    "phase": "25. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "3d4cb74b-21af-41f3-8469-cb7efbbe334d"
+  },
+  {
+    "date": "19. 4. 2025",
+    "time": "10:15",
+    "home": "FK Dukla Praha B",
+    "away": "FC Písek",
+    "phase": "24. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "7e382a93-a4d9-4d8f-892c-938d6dfd1cba"
+  },
+  {
+    "date": "5. 4. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "Povltavská FA",
+    "phase": "22. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "de0e45bb-2901-4619-98c8-e9595344811c"
+  },
+  {
+    "date": "29. 3. 2025",
+    "time": "15:00",
+    "home": "TJ Jiskra Domažlice",
+    "away": "FC Písek",
+    "phase": "21. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "5918baee-4f69-4ade-8ebe-b97756fd00da"
+  },
+  {
+    "date": "21. 3. 2025",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FK Loko Praha",
+    "phase": "20. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "0f093b5b-a2dc-45b9-90cc-bc597b8a8a93"
+  },
+  {
+    "date": "16. 3. 2025",
+    "time": "10:15",
+    "home": "FK Admira Praha",
+    "away": "FC Písek",
+    "phase": "19. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "4b5c6191-00e4-4d35-a83d-e5e8893509d6"
+  },
+  {
+    "date": "8. 3. 2025",
+    "time": "10:15",
+    "home": "FC Písek",
+    "away": "FC Viktoria Plzeň B",
+    "phase": "18. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "95e62db8-c9d9-45d0-8b3e-3a436d85de53"
+  },
+  {
+    "date": "24. 11. 2024",
+    "time": "13:00",
+    "home": "FC Viktoria Plzeň B",
+    "away": "FC Písek",
+    "phase": "16. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "57ee172b-b7fe-4ee7-9a80-f9b6fb33356c"
+  },
+  {
+    "date": "15. 11. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "Sokol Hostouň",
+    "phase": "15. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "d0ae2366-8c17-4e68-823a-faffb9585760"
+  },
+  {
+    "date": "1. 11. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FK Dukla Praha B",
+    "phase": "13. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "5d0c98c4-a368-4a31-b177-29521eb4c05b"
+  },
+  {
+    "date": "26. 10. 2024",
+    "time": "10:30",
+    "home": "SK Dynamo Č. Budějovice B",
+    "away": "FC Písek",
+    "phase": "12. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "f96bb847-b0b7-49d5-8cbd-128241f8b047"
+  },
+  {
+    "date": "20. 10. 2024",
+    "time": "15:30",
+    "home": "FC Táborsko akademie",
+    "away": "FC Písek",
+    "phase": "11. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "75c2a165-b0cb-4b07-8cce-60198a42c400"
+  },
+  {
+    "date": "16. 10. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "1.FK Příbram FA B",
+    "phase": "6. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "ab3b5b42-b900-4a83-b32e-42e3808fe4b0"
+  },
+  {
+    "date": "11. 10. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "SK PETŘÍN PLZEŇ",
+    "phase": "10. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "6019ae9e-b9b9-4ff2-83af-e665cb0b58c1"
+  },
+  {
+    "date": "6. 10. 2024",
+    "time": "10:15",
+    "home": "Bohemians Praha 1905 B",
+    "away": "FC Písek",
+    "phase": "9. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "abe16775-8194-47fd-b025-deb673aed704"
+  },
+  {
+    "date": "29. 9. 2024",
+    "time": "16:30",
+    "home": "FC Písek",
+    "away": "FK Motorlet Praha",
+    "phase": "8. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "91012481-74e8-44e4-984e-c1c0850ff084"
+  },
+  {
+    "date": "21. 9. 2024",
+    "time": "14:30",
+    "home": "TJ Slovan Velvary",
+    "away": "FC Písek",
+    "phase": "7. kolo",
+    "us": "away",
+    "season": "2024/2025",
+    "embed": "ffd16bf4-f182-4b41-bda1-75ad5152b736"
+  },
+  {
+    "date": "1. 9. 2024",
+    "time": "17:00",
+    "home": "FC Písek",
+    "away": "FC Chomutov",
+    "phase": "4. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "5070aa5d-cdad-4a4f-856c-c5c5ce7fb317"
+  },
+  {
+    "date": "28. 8. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "FK Admira Praha",
+    "phase": "17. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "028f283c-131c-4077-babb-93c5ed7987f1"
+  },
+  {
+    "date": "16. 8. 2024",
+    "time": "18:00",
+    "home": "FC Písek",
+    "away": "TJ Jiskra Domažlice",
+    "phase": "2. kolo",
+    "us": "home",
+    "season": "2024/2025",
+    "embed": "500e6e9e-fc17-4ddb-923f-af6db85d3e8e"
   }
 ]
