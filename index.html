@@ -596,16 +596,24 @@ function renderList(){
 let __withStatus = [];
 let __featured = null;
 
+function applyFilters(){
+  // Filtry Doma/Venku, výběr kola i hledání se promítnou do CELÉHO výběru
+  // sezóny — do tří karet nahoře i do seznamu pod nimi (dřív filtroval jen seznam).
+  const filtered = (window.__seasonPool || []).filter(passesFilter);
+  renderCards(filtered);
+  window.__listRest = filtered.slice(3);
+  renderList();
+}
+
 function refreshSeasonView(){
   document.querySelectorAll(".season-tab").forEach(b => b.classList.toggle("active", b.dataset.season === state.season));
   const pool = pastPool(__withStatus, __featured);
-  renderCards(pool);
-  window.__listRest = pool.slice(3);
+  window.__seasonPool = pool;
   state.loc = "all"; state.phase = "all"; state.q = "";
   document.getElementById("searchInput").value = "";
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b.dataset.loc === "all"));
-  populatePhaseSelect(window.__listRest);
-  renderList();
+  populatePhaseSelect(pool);
+  applyFilters();
 }
 
 function openPlayer(i){
@@ -627,11 +635,11 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     state.loc = btn.dataset.loc;
-    renderList();
+    applyFilters();
   });
 });
-document.getElementById("phaseSelect").addEventListener("change", (e) => { state.phase = e.target.value; renderList(); });
-document.getElementById("searchInput").addEventListener("input", (e) => { state.q = e.target.value.trim().toLowerCase(); renderList(); });
+document.getElementById("phaseSelect").addEventListener("change", (e) => { state.phase = e.target.value; applyFilters(); });
+document.getElementById("searchInput").addEventListener("input", (e) => { state.q = e.target.value.trim().toLowerCase(); applyFilters(); });
 
 async function loadMatches(){
   const heroEl = document.getElementById("heroMatch");
