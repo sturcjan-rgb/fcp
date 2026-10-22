@@ -9,6 +9,16 @@
       "url": "https://www.gornicky.cz",
       "weight": 1,
       "active": true
+    },
+    {
+      "id": "das-mvjfgzrw",
+      "sponsor": "das",
+      "slot": "header",
+      "image": "assets/ads/das-mvjfgzrw-mvjfgzrw-desktop.png",
+      "image_mobile": "assets/ads/das-mvjfgzrw-mvjfgzrw-desktop.png",
+      "url": "https://www.gornicky.cz",
+      "weight": 1,
+      "active": true
     }
   ]
 }
