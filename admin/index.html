@@ -118,7 +118,7 @@
     </ol>
     <form id="setupForm" style="grid-template-columns:1fr">
       <div class="f"><label for="setupToken">GitHub token</label><input id="setupToken" type="password" autocomplete="off" required placeholder="github_pat_…"></div>
-      <div class="f"><label for="setupPass">Nové heslo</label><input id="setupPass" type="password" autocomplete="new-password" required><span class="hint">Aspoň 14 znaků. Nejlépe 4–5 náhodných slov, např. <i>brankář-lavička-penalta-otava</i>.</span></div>
+      <div class="f"><label for="setupPass">Nové heslo</label><input id="setupPass" type="password" autocomplete="new-password" required></div>
       <div class="f"><label for="setupPass2">Heslo znovu</label><input id="setupPass2" type="password" autocomplete="new-password" required></div>
       <div class="actions"><button class="btn" type="submit" id="setupBtn">Uložit heslo</button><button class="btn ghost" type="button" id="setupCancel">Zpět</button></div>
     </form>
@@ -351,7 +351,7 @@ $("setupForm").addEventListener("submit", async e => {
   e.preventDefault();
   const tok = $("setupToken").value.trim();
   const p1 = $("setupPass").value, p2 = $("setupPass2").value;
-  if(p1.length < 14) return setMsg("setupMsg", "Heslo musí mít aspoň 14 znaků.", "err");
+  if(!p1) return setMsg("setupMsg", "Zadejte heslo.", "err");
   if(p1 !== p2) return setMsg("setupMsg", "Hesla se neshodují.", "err");
   $("setupBtn").disabled = true;
   setMsg("setupMsg", "Ověřuji token a ukládám…");

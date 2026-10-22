@@ -155,12 +155,12 @@ se dešifruje jen v prohlížeči správce.
    Permissions → Repository permissions → **Contents: Read and write**.
    Expiration např. 1 rok.
 3. Otevřít `/admin/` (při změně hesla `/admin/#setup`), vložit token, zvolit
-   heslo (min. 14 znaků, nejlépe 4–5 náhodných slov) a uložit.
+   heslo a uložit.
 4. Za 1–2 minuty (až Pages vystaví `admin/key.json`) jde administrace
    otevřít jen heslem.
 
-**Bezpečnost:** zašifrovaný klíč je veřejný, proto je nutné dlouhé heslo
-(krátké by šlo uhodnout zkoušením). Token umí jen zapisovat soubory tohoto
+**Bezpečnost:** zašifrovaný klíč je veřejný, takže krátké heslo jde
+uhodnout zkoušením; delší heslo je bezpečnější (admin délku nevynucuje). Token umí jen zapisovat soubory tohoto
 repozitáře. Při úniku hesla stačí token na GitHubu zrušit
 (Settings → Developer settings → Fine-grained tokens → Revoke) a nastavit
 nový přes `/admin/#setup`. Když tokenu vyprší platnost, administrace na to
