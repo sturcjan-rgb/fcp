@@ -109,3 +109,62 @@ paralelně, jen ji nezveřejňujte, dokud nepřijde souhlas.
   (WOFF2 v base64) — `font-family:"Chaney"` pro nadpisy, `"Chaney Extended"`
   pro wordmark v hlavičce. Jako fallback slouží „Barlow Condensed" (Google
   Fonts). Chceš-li font vyměnit, přepiš base64 v `@font-face` a `font-family`.
+
+## Reklama (bannery partnerů)
+
+Web má tři reklamní pozice. Bannery se spravují v administraci na
+**`/admin/`** (např. `https://<web>/admin/`), přihlašuje se jedním heslem.
+
+| Pozice | Kde | Počítač | Mobil |
+|---|---|---|---|
+| `header` | nad posledním zápasem | 2000 × 250 px (8 : 1) | 1200 × 300 px (4 : 1) |
+| `mid` | ve výpisu zápasů za 6. řádkem (u kratšího výpisu v polovině) | 2000 × 200 px (10 : 1) | 1200 × 400 px (3 : 1) |
+| `end` | pod výpisem, nad patičkou | 2000 × 500 px (4 : 1) | 1200 × 800 px (3 : 2) |
+
+JPG, PNG nebo WebP, ideálně do 300 kB (admin pustí max. 500 kB). Mobilní
+obrázek je nepovinný. Když na jedné pozici běží víc bannerů, při každém
+načtení stránky se vybere jeden náhodně podle „váhy".
+
+```
+/admin  ── správce nahraje banner, odkaz, termín od–do, váhu
+   │       (heslem se v prohlížeči odemkne GitHub token)
+   ▼
+GitHub API ── jeden commit: obrázky do assets/ads/ + záznam do data/ads.json
+   ▼
+GitHub Pages ── za 1–2 minuty je změna na webu
+   ▼
+index.html ── loadAds() vybere bannery v termínu a vloží je do pozic
+```
+
+Odkazy dostanou UTM parametry (`utm_source=fcpisek-tv&utm_medium=banner&utm_campaign=<pozice>`),
+takže partner vidí návštěvy z webu ve svém Google Analytics. Když
+`data/ads.json` chybí nebo je prázdný, pozice se nezobrazí.
+
+### Jak funguje přihlášení heslem
+
+Web je statický, takže zápis do repozitáře potřebuje GitHub token. Ten je
+v repozitáři uložený **zašifrovaný heslem** (`admin/key.json`, AES-GCM, klíč
+z hesla přes PBKDF2 se 600 000 iteracemi). Heslo se nikam neposílá; token
+se dešifruje jen v prohlížeči správce.
+
+**První nastavení (a stejně tak změna hesla nebo obnova tokenu):**
+
+1. GitHub → Settings → Developer settings → Personal access tokens →
+   **Fine-grained tokens → Generate new token**.
+2. Repository access: **Only select repositories** → tento repozitář.
+   Permissions → Repository permissions → **Contents: Read and write**.
+   Expiration např. 1 rok.
+3. Otevřít `/admin/` (při změně hesla `/admin/#setup`), vložit token, zvolit
+   heslo (min. 14 znaků, nejlépe 4–5 náhodných slov) a uložit.
+4. Za 1–2 minuty (až Pages vystaví `admin/key.json`) jde administrace
+   otevřít jen heslem.
+
+**Bezpečnost:** zašifrovaný klíč je veřejný, proto je nutné dlouhé heslo
+(krátké by šlo uhodnout zkoušením). Token umí jen zapisovat soubory tohoto
+repozitáře. Při úniku hesla stačí token na GitHubu zrušit
+(Settings → Developer settings → Fine-grained tokens → Revoke) a nastavit
+nový přes `/admin/#setup`. Když tokenu vyprší platnost, administrace na to
+upozorní; postup je stejný.
+
+Adresu repozitáře, do kterého admin zapisuje, určuje `CONFIG` na začátku
+skriptu v `admin/index.html`.
