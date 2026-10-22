@@ -118,7 +118,7 @@
     </ol>
     <form id="setupForm" style="grid-template-columns:1fr">
       <div class="f"><label for="setupToken">GitHub token</label><input id="setupToken" type="password" autocomplete="off" required placeholder="github_pat_…"></div>
-      <div class="f"><label for="setupPass">Nové heslo</label><input id="setupPass" type="password" autocomplete="new-password" required><span class="hint">Aspoň 14 znaků. Nejlépe 4–5 náhodných slov, např. <i>brankář-lavička-penalta-otava</i>.</span></div>
+      <div class="f"><label for="setupPass">Nové heslo</label><input id="setupPass" type="password" autocomplete="new-password" required></div>
       <div class="f"><label for="setupPass2">Heslo znovu</label><input id="setupPass2" type="password" autocomplete="new-password" required></div>
       <div class="actions"><button class="btn" type="submit" id="setupBtn">Uložit heslo</button><button class="btn ghost" type="button" id="setupCancel">Zpět</button></div>
     </form>
@@ -143,7 +143,7 @@
           <div class="f"><label for="fImg">Obrázek – počítač</label><input id="fImg" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgInfo"></span></div>
           <div class="f"><label for="fImgM">Obrázek – mobil</label><input id="fImgM" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgMInfo">Nepovinné. Bez něj se použije obrázek pro počítač.</span></div>
           <div class="preview" id="preview">Náhled banneru</div>
-          <div class="f full"><label for="fUrl">Odkaz po kliknutí</label><input id="fUrl" type="url" required placeholder="https://www.partner.cz"></div>
+          <div class="f full"><label for="fUrl">Odkaz po kliknutí</label><input id="fUrl" type="url" placeholder="https://www.partner.cz"><span class="hint">Nepovinné. Bez odkazu se banner zobrazí jen jako obrázek.</span></div>
           <div class="f"><label for="fFrom">Zobrazovat od</label><input id="fFrom" type="date"></div>
           <div class="f"><label for="fTo">do (včetně)</label><input id="fTo" type="date"></div>
           <div class="f"><label for="fWeight">Váha v rotaci</label><input id="fWeight" type="number" min="1" max="10" value="1"></div>
@@ -246,7 +246,11 @@ async function decryptToken(blob, password){
 
 // ── GitHub API ───────────────────────────────────────────────────────────
 async function gh(path, opts = {}, tok = token){
-  const res = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}${path}`, {
+  let url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}${path}`;
+  // GitHub posílá u GET odpovědí "max-age=60" a prohlížeč by pak minutu vracel
+  // starý stav větve. Unikátní parametr v adrese cache spolehlivě obejde.
+  if(!opts.method || opts.method === "GET") url += (url.includes("?") ? "&" : "?") + "_=" + Date.now();
+  const res = await fetch(url, {
     ...opts,
     headers: {
       "Accept": "application/vnd.github+json",
@@ -280,9 +284,19 @@ async function commitFiles(files, message, tok = token){
     const ref = await gh(`/git/ref/heads/${CONFIG.branch}`, {}, tok);
     const parent = ref.object.sha;
     const parentCommit = await gh(`/git/commits/${parent}`, {}, tok);
+    // Mazat jde jen soubor, který ve větvi opravdu je (jinak GitHub vrátí
+    // 422 BadObjectState), proto si nejdřív načteme seznam souborů.
+    let existing = null;
+    if(files.some(f => f.remove)){
+      const full = await gh(`/git/trees/${parentCommit.tree.sha}?recursive=1`, {}, tok);
+      existing = new Set(full.tree.map(e => e.path));
+    }
     const tree = [];
     for(const f of files){
-      if(f.remove){ tree.push({ path: f.path, mode: "100644", type: "blob", sha: null }); continue; }
+      if(f.remove){
+        if(existing.has(f.path)) tree.push({ path: f.path, mode: "100644", type: "blob", sha: null });
+        continue;
+      }
       const blob = await gh(`/git/blobs`, { method: "POST", body: JSON.stringify({ content: f.base64, encoding: "base64" }) }, tok);
       tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
     }
@@ -337,7 +351,7 @@ $("setupForm").addEventListener("submit", async e => {
   e.preventDefault();
   const tok = $("setupToken").value.trim();
   const p1 = $("setupPass").value, p2 = $("setupPass2").value;
-  if(p1.length < 14) return setMsg("setupMsg", "Heslo musí mít aspoň 14 znaků.", "err");
+  if(!p1) return setMsg("setupMsg", "Zadejte heslo.", "err");
   if(p1 !== p2) return setMsg("setupMsg", "Hesla se neshodují.", "err");
   $("setupBtn").disabled = true;
   setMsg("setupMsg", "Ověřuji token a ukládám…");
@@ -409,7 +423,7 @@ function renderList(){
         <img src="${escapeHtml(imgSrc(a.image))}" alt="">
         <div style="min-width:0">
           <div class="nm">${escapeHtml(a.sponsor)}</div>
-          <div class="mt"><span class="pill ${cls}">${escapeHtml(txt)}</span>váha ${a.weight || 1} · ${escapeHtml(a.url)}</div>
+          <div class="mt"><span class="pill ${cls}">${escapeHtml(txt)}</span>váha ${a.weight || 1} · ${a.url ? escapeHtml(a.url) : "bez odkazu"}</div>
         </div>
         <div class="acts">
           <button class="btn ghost small" type="button" data-edit="${escapeHtml(a.id)}">Upravit</button>
@@ -552,7 +566,7 @@ function startEdit(id){
   editingId = id;
   $("fSponsor").value = a.sponsor;
   $("fSlot").value = a.slot;
-  $("fUrl").value = a.url;
+  $("fUrl").value = a.url || "";
   $("fFrom").value = a.from || "";
   $("fTo").value = a.to || "";
   $("fWeight").value = a.weight || 1;
@@ -574,27 +588,30 @@ $("adForm").addEventListener("submit", async e => {
   const from = $("fFrom").value, to = $("fTo").value;
   const existing = editingId ? ads.find(a => a.id === editingId) : null;
   if(!sponsor) return setMsg("formMsg", "Vyplňte jméno partnera.", "err");
-  let parsed;
-  try { parsed = new URL(url); } catch(err) {}
-  if(!parsed || !/^https?:$/.test(parsed.protocol)) return setMsg("formMsg", "Odkaz musí být celá adresa začínající https://", "err");
+  if(url){
+    let parsed;
+    try { parsed = new URL(url); } catch(err) {}
+    if(!parsed || !/^https?:$/.test(parsed.protocol)) return setMsg("formMsg", "Odkaz musí být celá adresa začínající https://, nebo nechte pole prázdné.", "err");
+  }
   if(!existing && !fileCache.fImg && !fileCache.fImgM) return setMsg("formMsg", "Nahrajte obrázek banneru.", "err");
   if(from && to && from > to) return setMsg("formMsg", "Datum „do“ je dřív než „od“.", "err");
 
   const id = existing ? existing.id : `${slugify(sponsor)}-${Date.now().toString(36)}`;
-  const stamp = Date.now().toString(36); // nový název souboru = žádná stará verze z cache
+  // Při výměně obrázku nový název souboru = žádná stará verze z cache.
+  const base = existing ? `${id}-${Date.now().toString(36)}` : id;
   const files = [];
   let image = existing ? existing.image : null;
   let imageMobile = existing ? existing.image_mobile : null;
   const desk = fileCache.fImg || (!existing ? fileCache.fImgM : null);
   const mob = fileCache.fImgM;
   if(desk){
-    const path = `${IMG_DIR}/${id}-${stamp}-desktop.${desk.ext}`;
+    const path = `${IMG_DIR}/${base}-desktop.${desk.ext}`;
     files.push({ path, base64: desk.base64 });
     localPreviews[path] = desk.dataUrl;
     image = path;
   }
   if(mob){
-    const path = `${IMG_DIR}/${id}-${stamp}-mobile.${mob.ext}`;
+    const path = `${IMG_DIR}/${base}-mobile.${mob.ext}`;
     files.push({ path, base64: mob.base64 });
     localPreviews[path] = mob.dataUrl;
     imageMobile = path;
@@ -610,7 +627,8 @@ $("adForm").addEventListener("submit", async e => {
     }
   }
 
-  const ad = { id, sponsor, slot: $("fSlot").value, image, image_mobile: imageMobile || image, url };
+  const ad = { id, sponsor, slot: $("fSlot").value, image, image_mobile: imageMobile || image };
+  if(url) ad.url = url;
   if(from) ad.from = from;
   if(to) ad.to = to;
   ad.weight = Math.min(10, Math.max(1, parseInt($("fWeight").value, 10) || 1));

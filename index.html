@@ -310,7 +310,7 @@
     border-radius:var(--radius);border:1px solid var(--line);background:var(--card);
     transition:border-color .15s ease;
   }
-  .ad:hover{border-color:var(--gold);}
+  a.ad:hover{border-color:var(--gold);}
   .ad img{display:block;width:100%;height:100%;object-fit:cover;}
   .ad-slot[data-ad-slot="header"] .ad{aspect-ratio:8/1;}
   .ad-slot[data-ad-slot="mid"] .ad{aspect-ratio:10/1;}
@@ -652,24 +652,30 @@ function pickWeighted(list){
   for(const a of list){ if((r -= a.weight) < 0) return a; }
   return list[list.length - 1] || null;
 }
-function adHtml(a){
-  let href;
+// Odkaz je nepovinný — banner bez platného odkazu se zobrazí jen jako obrázek.
+function adHref(a){
+  if(!a.url) return null;
   try {
     const u = new URL(a.url);
-    if(u.protocol !== "https:" && u.protocol !== "http:") return "";
+    if(u.protocol !== "https:" && u.protocol !== "http:") return null;
     u.searchParams.set("utm_source", "fcpisek-tv");
     u.searchParams.set("utm_medium", "banner");
     u.searchParams.set("utm_campaign", a.slot);
-    href = u.href;
-  } catch(e) { return ""; }
+    return u.href;
+  } catch(e) { return null; }
+}
+function adHtml(a){
+  const href = adHref(a);
   const mobile = a.image_mobile || a.image;
-  return `<a class="ad" href="${escapeHtml(href)}" target="_blank" rel="sponsored noopener">
+  const inner = `
       <picture>
         <source media="(max-width:640px)" srcset="${escapeHtml(mobile)}">
         <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.sponsor)}"${a.slot === "header" ? "" : ` loading="lazy"`}>
       </picture>
-      <span class="ad-label">Partner</span>
-    </a>`;
+      <span class="ad-label">Partner</span>`;
+  return href
+    ? `<a class="ad" href="${escapeHtml(href)}" target="_blank" rel="sponsored noopener">${inner}</a>`
+    : `<div class="ad">${inner}</div>`;
 }
 function fillAdSlots(){
   document.querySelectorAll("[data-ad-slot]").forEach(el => {
@@ -690,7 +696,7 @@ async function loadAds(){
     return;
   }
   const today = localISODate(new Date());
-  const live = ads.filter(a => a && a.image && a.url && a.active !== false
+  const live = ads.filter(a => a && a.image && a.active !== false
     && (!a.from || a.from <= today) && (!a.to || a.to >= today))
     .map(a => ({ ...a, weight: Math.max(1, Number(a.weight) || 1) }));
   for(const slot of AD_SLOTS) __adPicks[slot] = pickWeighted(live.filter(a => a.slot === slot));
