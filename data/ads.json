@@ -3,9 +3,19 @@
     {
       "id": "gornicky-mvjfcs8j",
       "sponsor": "Gornicky",
+      "slot": "mid",
+      "image": "assets/ads/gornicky-mvjfcs8j-mvjfeoxe-desktop.png",
+      "image_mobile": "assets/ads/gornicky-mvjfcs8j-mvjfeoxe-desktop.png",
+      "url": "https://www.gornicky.cz",
+      "weight": 1,
+      "active": true
+    },
+    {
+      "id": "das-mvjfgzrw",
+      "sponsor": "das",
       "slot": "header",
-      "image": "assets/ads/gornicky-mvjfcs8j-mvjfcs8j-desktop.png",
-      "image_mobile": "assets/ads/gornicky-mvjfcs8j-mvjfcs8j-desktop.png",
+      "image": "assets/ads/das-mvjfgzrw-mvjfgzrw-desktop.png",
+      "image_mobile": "assets/ads/das-mvjfgzrw-mvjfgzrw-desktop.png",
       "url": "https://www.gornicky.cz",
       "weight": 1,
       "active": true
