@@ -19,6 +19,16 @@
       "url": "https://www.gornicky.cz",
       "weight": 1,
       "active": true
+    },
+    {
+      "id": "sadas-mvjfis46",
+      "sponsor": "sadas",
+      "slot": "end",
+      "image": "assets/ads/sadas-mvjfis46-mvjfis46-desktop.png",
+      "image_mobile": "assets/ads/sadas-mvjfis46-mvjfis46-desktop.png",
+      "url": "https://www.gornicky.cz",
+      "weight": 1,
+      "active": true
     }
   ]
 }
