@@ -246,7 +246,11 @@ async function decryptToken(blob, password){
 
 // ── GitHub API ───────────────────────────────────────────────────────────
 async function gh(path, opts = {}, tok = token){
-  const res = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}${path}`, {
+  let url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}${path}`;
+  // GitHub posílá u GET odpovědí "max-age=60" a prohlížeč by pak minutu vracel
+  // starý stav větve. Unikátní parametr v adrese cache spolehlivě obejde.
+  if(!opts.method || opts.method === "GET") url += (url.includes("?") ? "&" : "?") + "_=" + Date.now();
+  const res = await fetch(url, {
     ...opts,
     headers: {
       "Accept": "application/vnd.github+json",
@@ -280,9 +284,19 @@ async function commitFiles(files, message, tok = token){
     const ref = await gh(`/git/ref/heads/${CONFIG.branch}`, {}, tok);
     const parent = ref.object.sha;
     const parentCommit = await gh(`/git/commits/${parent}`, {}, tok);
+    // Mazat jde jen soubor, který ve větvi opravdu je (jinak GitHub vrátí
+    // 422 BadObjectState), proto si nejdřív načteme seznam souborů.
+    let existing = null;
+    if(files.some(f => f.remove)){
+      const full = await gh(`/git/trees/${parentCommit.tree.sha}?recursive=1`, {}, tok);
+      existing = new Set(full.tree.map(e => e.path));
+    }
     const tree = [];
     for(const f of files){
-      if(f.remove){ tree.push({ path: f.path, mode: "100644", type: "blob", sha: null }); continue; }
+      if(f.remove){
+        if(existing.has(f.path)) tree.push({ path: f.path, mode: "100644", type: "blob", sha: null });
+        continue;
+      }
       const blob = await gh(`/git/blobs`, { method: "POST", body: JSON.stringify({ content: f.base64, encoding: "base64" }) }, tok);
       tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
     }
@@ -581,20 +595,21 @@ $("adForm").addEventListener("submit", async e => {
   if(from && to && from > to) return setMsg("formMsg", "Datum „do“ je dřív než „od“.", "err");
 
   const id = existing ? existing.id : `${slugify(sponsor)}-${Date.now().toString(36)}`;
-  const stamp = Date.now().toString(36); // nový název souboru = žádná stará verze z cache
+  // Při výměně obrázku nový název souboru = žádná stará verze z cache.
+  const base = existing ? `${id}-${Date.now().toString(36)}` : id;
   const files = [];
   let image = existing ? existing.image : null;
   let imageMobile = existing ? existing.image_mobile : null;
   const desk = fileCache.fImg || (!existing ? fileCache.fImgM : null);
   const mob = fileCache.fImgM;
   if(desk){
-    const path = `${IMG_DIR}/${id}-${stamp}-desktop.${desk.ext}`;
+    const path = `${IMG_DIR}/${base}-desktop.${desk.ext}`;
     files.push({ path, base64: desk.base64 });
     localPreviews[path] = desk.dataUrl;
     image = path;
   }
   if(mob){
-    const path = `${IMG_DIR}/${id}-${stamp}-mobile.${mob.ext}`;
+    const path = `${IMG_DIR}/${base}-mobile.${mob.ext}`;
     files.push({ path, base64: mob.base64 });
     localPreviews[path] = mob.dataUrl;
     imageMobile = path;
