@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reklama · FC Písek TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#223080;
+    --blue-deep:#161f56;
+    --gold:#FCC400;
+    --gold-soft:#fff4d1;
+    --bg:#f3f4f8;
+    --card:#ffffff;
+    --line:#e2e4ee;
+    --line-strong:#d3d6e6;
+    --text:#161a2e;
+    --text-dim:#63677e;
+    --ok:#15803d;
+    --err:#b91c1c;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:"Barlow","Segoe UI",Roboto,Arial,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  header{background:var(--blue);border-bottom:3px solid var(--gold);color:#fff;}
+  .nav{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .wordmark{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;text-transform:uppercase;}
+  .wordmark span{color:var(--blue);background:var(--gold);padding:1px 6px;border-radius:4px;margin-left:6px;font-size:16px;vertical-align:2px;}
+  .nav a, .nav button.link{color:rgba(255,255,255,.85);font-weight:600;font-size:14px;font-family:inherit;background:none;border:0;cursor:pointer;text-decoration:none;}
+  .nav a:hover, .nav button.link:hover{color:var(--gold);}
+  .nav-right{display:flex;gap:18px;align-items:center;}
+  main{max-width:1100px;margin:0 auto;padding:28px 20px 80px;}
+  h1,h2{font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;color:var(--blue);letter-spacing:.3px;margin:0 0 12px;}
+  h1{font-size:30px;} h2{font-size:22px;}
+  p{margin:0 0 12px;}
+  .dim{color:var(--text-dim);}
+  .small{font-size:13px;}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--gold-soft);padding:1px 5px;border-radius:4px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 2px 12px rgba(34,48,128,.06);}
+  .narrow{max-width:460px;margin:40px auto 0;}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start;}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .f{display:flex;flex-direction:column;gap:4px;min-width:0;}
+  .f.full{grid-column:1/-1;}
+  label{font-size:12px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;}
+  input,select{width:100%;min-width:0;font:500 15px "Barlow",sans-serif;color:var(--text);background:#fff;border:1px solid var(--line-strong);border-radius:8px;padding:9px 11px;}
+  input[type=file]{padding:6px;font-size:13px;}
+  input[type=checkbox]{width:auto;}
+  input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}
+  .check{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text);text-transform:none;letter-spacing:0;}
+  .hint{font-size:12.5px;color:var(--text-dim);}
+  .hint.warn{color:#a15c00;}
+  .btn{background:var(--blue);color:#fff;border:0;border-radius:9px;padding:11px 18px;font:700 15px "Barlow",sans-serif;cursor:pointer;}
+  .btn:hover{background:var(--blue-deep);}
+  .btn:disabled{opacity:.55;cursor:progress;}
+  .btn.gold{background:var(--gold);color:var(--blue);}
+  .btn.ghost{background:transparent;color:var(--blue);border:1px solid var(--line-strong);}
+  .btn.small{padding:5px 10px;font-size:13px;border-radius:7px;}
+  .btn.danger{color:var(--err);}
+  .actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;}
+  .msg{margin-top:12px;font-size:14px;min-height:1.5em;}
+  .msg.ok{color:var(--ok);} .msg.err{color:var(--err);}
+  .preview{grid-column:1/-1;border:1px dashed var(--line-strong);border-radius:var(--radius);overflow:hidden;background:repeating-linear-gradient(135deg,#f7f8fb 0 10px,#eef0f6 10px 20px);display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px;}
+  .preview img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slot-group{margin-bottom:22px;}
+  .slot-group h3{font:800 15px "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin:0 0 8px;display:flex;justify-content:space-between;}
+  .ad-row{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:8px 10px;margin-bottom:6px;}
+  .ad-row img{width:120px;height:40px;object-fit:cover;border-radius:5px;display:block;background:#eef0f6;}
+  .ad-row .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ad-row .mt{font-size:12.5px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .ad-row .acts{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:1px 7px;border-radius:999px;margin-right:6px;}
+  .pill.on{background:#dcfce7;color:var(--ok);} .pill.off{background:#fee2e2;color:var(--err);} .pill.wait{background:var(--gold-soft);color:#8a6400;}
+  .empty{border:1px dashed var(--line-strong);border-radius:var(--radius);padding:12px;color:var(--text-dim);font-size:14px;}
+  ol.steps{padding-left:20px;margin:0 0 14px;} ol.steps li{margin-bottom:6px;}
+  [hidden]{display:none!important;}
+  @media (max-width:860px){ .grid{grid-template-columns:1fr;} }
+  @media (max-width:520px){ form{grid-template-columns:1fr;} .ad-row{grid-template-columns:80px minmax(0,1fr);} .ad-row img{width:80px;} .ad-row .acts{grid-column:1/-1;justify-content:flex-start;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="wordmark">FC Písek<span>TV</span> · reklama</div>
+    <div class="nav-right">
+      <a href="../" target="_blank" rel="noopener">Otevřít web</a>
+      <button class="link" id="logoutBtn" type="button" hidden>Odhlásit</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── Přihlášení ── -->
+  <section id="viewLogin" class="card narrow" hidden>
+    <h1>Přihlášení</h1>
+    <form id="loginForm" style="grid-template-columns:1fr">
+      <div class="f"><label for="loginPass">Heslo</label><input id="loginPass" type="password" autocomplete="current-password" required autofocus></div>
+      <div class="actions"><button class="btn" type="submit" id="loginBtn">Přihlásit</button></div>
+    </form>
+    <div class="msg" id="loginMsg" role="status"></div>
+    <p class="small dim" style="margin-top:14px">Měníte heslo nebo GitHub token? <a href="#setup" id="toSetup">Nastavit znovu</a></p>
+  </section>
+
+  <!-- ── První nastavení / změna hesla ── -->
+  <section id="viewSetup" class="card narrow" hidden>
+    <h1>Nastavení hesla</h1>
+    <ol class="steps small">
+      <li>Na GitHubu otevřete <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>.</li>
+      <li>Repository access: <b>Only select repositories</b> → <code id="repoName"></code>. Permissions → Repository → <b>Contents: Read and write</b>. Platnost klidně 1 rok.</li>
+      <li>Token vložte sem a zvolte heslo pro administraci. Token se heslem zašifruje a uloží do repozitáře jako <code>admin/key.json</code>. Bez hesla je k ničemu.</li>
+    </ol>
+    <form id="setupForm" style="grid-template-columns:1fr">
+      <div class="f"><label for="setupToken">GitHub token</label><input id="setupToken" type="password" autocomplete="off" required placeholder="github_pat_…"></div>
+      <div class="f"><label for="setupPass">Nové heslo</label><input id="setupPass" type="password" autocomplete="new-password" required><span class="hint">Aspoň 14 znaků. Nejlépe 4–5 náhodných slov, např. <i>brankář-lavička-penalta-otava</i>.</span></div>
+      <div class="f"><label for="setupPass2">Heslo znovu</label><input id="setupPass2" type="password" autocomplete="new-password" required></div>
+      <div class="actions"><button class="btn" type="submit" id="setupBtn">Uložit heslo</button><button class="btn ghost" type="button" id="setupCancel">Zpět</button></div>
+    </form>
+    <div class="msg" id="setupMsg" role="status"></div>
+  </section>
+
+  <!-- ── Správa bannerů ── -->
+  <section id="viewAdmin" hidden>
+    <div class="grid">
+      <div class="card">
+        <h2 id="formTitle">Nový banner</h2>
+        <form id="adForm" novalidate>
+          <div class="f full"><label for="fSponsor">Partner</label><input id="fSponsor" required placeholder="např. Autoservis Novák"></div>
+          <div class="f full"><label for="fSlot">Pozice</label>
+            <select id="fSlot">
+              <option value="header">1 · Hlavička (nad posledním zápasem)</option>
+              <option value="mid">2 · Půlka výpisu zápasů</option>
+              <option value="end">3 · Konec stránky (nad patičkou)</option>
+            </select>
+            <span class="hint" id="slotSpec"></span>
+          </div>
+          <div class="f"><label for="fImg">Obrázek – počítač</label><input id="fImg" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgInfo"></span></div>
+          <div class="f"><label for="fImgM">Obrázek – mobil</label><input id="fImgM" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgMInfo">Nepovinné. Bez něj se použije obrázek pro počítač.</span></div>
+          <div class="preview" id="preview">Náhled banneru</div>
+          <div class="f full"><label for="fUrl">Odkaz po kliknutí</label><input id="fUrl" type="url" required placeholder="https://www.partner.cz"></div>
+          <div class="f"><label for="fFrom">Zobrazovat od</label><input id="fFrom" type="date"></div>
+          <div class="f"><label for="fTo">do (včetně)</label><input id="fTo" type="date"></div>
+          <div class="f"><label for="fWeight">Váha v rotaci</label><input id="fWeight" type="number" min="1" max="10" value="1"></div>
+          <div class="f" style="justify-content:flex-end"><label class="check"><input id="fActive" type="checkbox" checked> Zapnuto</label></div>
+          <div class="f full"><span class="hint">Když je na jedné pozici víc bannerů, střídají se. Banner s vahou 3 se ukáže 3× častěji než banner s vahou 1. Prázdné datum znamená bez omezení.</span></div>
+          <div class="actions">
+            <button class="btn" type="submit" id="saveBtn">Uložit a zveřejnit</button>
+            <button class="btn ghost" type="button" id="cancelEdit" hidden>Zrušit úpravy</button>
+          </div>
+        </form>
+        <div class="msg" id="formMsg" role="status"></div>
+      </div>
+
+      <div>
+        <h2>Bannery na webu</h2>
+        <p class="small dim">Změny se na webu projeví zhruba do 1–2 minut, až GitHub Pages stránku znovu vystaví.</p>
+        <div id="adList"><div class="empty">Načítám…</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ── Nastavení ────────────────────────────────────────────────────────────
+// Repozitář, do kterého administrace zapisuje. Při přesunu webu jinam
+// stačí změnit tady.
+const CONFIG = { owner: "sturcjan-rgb", repo: "fcp", branch: "main" };
+const ADS_PATH = "data/ads.json";
+const KEY_PATH = "admin/key.json";
+const IMG_DIR = "assets/ads";
+const MAX_IMG_BYTES = 500 * 1024;
+const PBKDF2_ITERATIONS = 600000;
+const SESSION_KEY = "fcp-ads-token";
+
+const SLOTS = {
+  header: { label: "1 · Hlavička", d: [2000, 250], m: [1200, 300] },
+  mid:    { label: "2 · Půlka výpisu", d: [2000, 200], m: [1200, 400] },
+  end:    { label: "3 · Konec stránky", d: [2000, 500], m: [1200, 800] },
+};
+
+const $ = id => document.getElementById(id);
+let token = null;
+let ads = [];
+let editingId = null;
+const localPreviews = {}; // cesta → dataURL právě nahraných obrázků (Pages je ještě nemusí mít)
+
+// ── Pomocné funkce ───────────────────────────────────────────────────────
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+}
+function show(view){
+  for(const v of ["viewLogin", "viewSetup", "viewAdmin"]) $(v).hidden = v !== view;
+  $("logoutBtn").hidden = view !== "viewAdmin";
+}
+function setMsg(id, text, kind){
+  const el = $(id);
+  el.textContent = text || "";
+  el.className = "msg" + (kind ? " " + kind : "");
+}
+function localISODate(d){
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function slugify(s){
+  return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "banner";
+}
+function bytesToB64(bytes){
+  let bin = "";
+  for(let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function b64ToBytes(b64){
+  const bin = atob(b64.replace(/\s/g, ""));
+  const out = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+const utf8ToB64 = s => bytesToB64(new TextEncoder().encode(s));
+const b64ToUtf8 = b => new TextDecoder().decode(b64ToBytes(b));
+
+// ── Šifrování tokenu heslem (PBKDF2 + AES-GCM, vše v prohlížeči) ─────────
+async function deriveKey(password, salt, iterations){
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt, iterations },
+    base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+async function encryptToken(tok, password){
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(password, salt, PBKDF2_ITERATIONS);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(tok)));
+  return { v: 1, kdf: "PBKDF2-SHA256", iterations: PBKDF2_ITERATIONS, salt: bytesToB64(salt), iv: bytesToB64(iv), ciphertext: bytesToB64(ct) };
+}
+async function decryptToken(blob, password){
+  const key = await deriveKey(password, b64ToBytes(blob.salt), blob.iterations);
+  const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64ToBytes(blob.iv) }, key, b64ToBytes(blob.ciphertext));
+  return new TextDecoder().decode(pt);
+}
+
+// ── GitHub API ───────────────────────────────────────────────────────────
+async function gh(path, opts = {}, tok = token){
+  const res = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}${path}`, {
+    ...opts,
+    headers: {
+      "Accept": "application/vnd.github+json",
+      "Authorization": `Bearer ${tok}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+      ...(opts.body ? { "Content-Type": "application/json" } : {}),
+    },
+  });
+  if(!res.ok){
+    let detail = "";
+    try { detail = (await res.json()).message || ""; } catch(e) {}
+    const err = new Error(`GitHub ${res.status}${detail ? ": " + detail : ""}`);
+    err.status = res.status;
+    throw err;
+  }
+  return res.status === 204 ? null : res.json();
+}
+async function readRepoFile(path, tok = token){
+  try {
+    const f = await gh(`/contents/${path}?ref=${encodeURIComponent(CONFIG.branch)}`, {}, tok);
+    return b64ToUtf8(f.content);
+  } catch(e) {
+    if(e.status === 404) return null;
+    throw e;
+  }
+}
+// Všechny změny jednoho uložení jdou do jednoho commitu (Git Data API).
+// files: [{ path, base64 }] nebo [{ path, remove: true }]
+async function commitFiles(files, message, tok = token){
+  for(let attempt = 0; attempt < 3; attempt++){
+    const ref = await gh(`/git/ref/heads/${CONFIG.branch}`, {}, tok);
+    const parent = ref.object.sha;
+    const parentCommit = await gh(`/git/commits/${parent}`, {}, tok);
+    const tree = [];
+    for(const f of files){
+      if(f.remove){ tree.push({ path: f.path, mode: "100644", type: "blob", sha: null }); continue; }
+      const blob = await gh(`/git/blobs`, { method: "POST", body: JSON.stringify({ content: f.base64, encoding: "base64" }) }, tok);
+      tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
+    }
+    const newTree = await gh(`/git/trees`, { method: "POST", body: JSON.stringify({ base_tree: parentCommit.tree.sha, tree }) }, tok);
+    const commit = await gh(`/git/commits`, { method: "POST", body: JSON.stringify({ message, tree: newTree.sha, parents: [parent] }) }, tok);
+    try {
+      await gh(`/git/refs/heads/${CONFIG.branch}`, { method: "PATCH", body: JSON.stringify({ sha: commit.sha }) }, tok);
+      return commit.sha;
+    } catch(e) {
+      // Mezitím commitnul někdo jiný (třeba scraper zápasů) — zkusíme znovu nad novým stavem.
+      if(e.status !== 422 || attempt === 2) throw e;
+    }
+  }
+}
+function explainError(e){
+  if(e.status === 401) return "GitHub token je neplatný nebo mu vypršela platnost. Vytvořte nový a nastavte heslo znovu.";
+  if(e.status === 403 || e.status === 404) return "Token nemá oprávnění zapisovat do repozitáře. Zkontrolujte, že má Contents: Read and write pro " + CONFIG.owner + "/" + CONFIG.repo + ".";
+  return "Uložení se nepovedlo (" + e.message + "). Zkuste to znovu.";
+}
+
+// ── Přihlášení a nastavení ───────────────────────────────────────────────
+async function fetchKeyBlob(){
+  const res = await fetch("key.json", { cache: "no-store" });
+  if(res.status === 404) return null;
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  $("loginBtn").disabled = true;
+  setMsg("loginMsg", "Ověřuji…");
+  try {
+    const blob = await fetchKeyBlob();
+    if(!blob){ show("viewSetup"); setMsg("loginMsg", ""); return; }
+    let tok;
+    try { tok = await decryptToken(blob, $("loginPass").value); }
+    catch(err) { setMsg("loginMsg", "Špatné heslo.", "err"); return; }
+    token = tok;
+    try { sessionStorage.setItem(SESSION_KEY, tok); } catch(err) {}
+    $("loginPass").value = "";
+    setMsg("loginMsg", "");
+    await openAdmin();
+  } catch(err) {
+    setMsg("loginMsg", "Nepodařilo se načíst klíč: " + err.message, "err");
+  } finally {
+    $("loginBtn").disabled = false;
+  }
+});
+
+$("setupForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const tok = $("setupToken").value.trim();
+  const p1 = $("setupPass").value, p2 = $("setupPass2").value;
+  if(p1.length < 14) return setMsg("setupMsg", "Heslo musí mít aspoň 14 znaků.", "err");
+  if(p1 !== p2) return setMsg("setupMsg", "Hesla se neshodují.", "err");
+  $("setupBtn").disabled = true;
+  setMsg("setupMsg", "Ověřuji token a ukládám…");
+  try {
+    const repo = await gh("", {}, tok);
+    if(repo.permissions && !repo.permissions.push) throw Object.assign(new Error("bez práva zápisu"), { status: 403 });
+    const blob = await encryptToken(tok, p1);
+    await commitFiles([{ path: KEY_PATH, base64: utf8ToB64(JSON.stringify(blob, null, 2) + "\n") }], "admin: nové heslo pro správu reklam", tok);
+    token = tok;
+    try { sessionStorage.setItem(SESSION_KEY, tok); } catch(err) {}
+    $("setupForm").reset();
+    setMsg("setupMsg", "");
+    await openAdmin();
+    setMsg("formMsg", "Heslo je uložené. Přihlašování heslem začne fungovat, až GitHub Pages web znovu vystaví (1–2 minuty).", "ok");
+  } catch(err) {
+    setMsg("setupMsg", explainError(err), "err");
+  } finally {
+    $("setupBtn").disabled = false;
+  }
+});
+
+$("toSetup").addEventListener("click", e => { e.preventDefault(); show("viewSetup"); });
+$("setupCancel").addEventListener("click", () => show(token ? "viewAdmin" : "viewLogin"));
+$("logoutBtn").addEventListener("click", () => {
+  token = null;
+  try { sessionStorage.removeItem(SESSION_KEY); } catch(err) {}
+  show("viewLogin");
+});
+
+// ── Správa bannerů ───────────────────────────────────────────────────────
+async function openAdmin(){
+  show("viewAdmin");
+  resetForm();
+  $("adList").innerHTML = `<div class="empty">Načítám…</div>`;
+  try {
+    const text = await readRepoFile(ADS_PATH);
+    ads = text ? (JSON.parse(text).ads || []) : [];
+    renderList();
+  } catch(err) {
+    if(err.status === 401){
+      try { sessionStorage.removeItem(SESSION_KEY); } catch(e) {}
+      token = null;
+      show("viewLogin");
+      setMsg("loginMsg", explainError(err), "err");
+      return;
+    }
+    $("adList").innerHTML = `<div class="empty">Bannery se nepodařilo načíst: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+function statusOf(a){
+  const today = localISODate(new Date());
+  if(a.active === false) return ["off", "vypnuto"];
+  if(a.from && a.from > today) return ["wait", "od " + a.from];
+  if(a.to && a.to < today) return ["off", "skončilo " + a.to];
+  return ["on", a.to ? "běží do " + a.to : "běží"];
+}
+function imgSrc(path){ return localPreviews[path] || "../" + path; }
+
+function renderList(){
+  const out = [];
+  for(const [slot, spec] of Object.entries(SLOTS)){
+    const items = ads.filter(a => a.slot === slot);
+    out.push(`<div class="slot-group"><h3><span>${spec.label}</span><span>${items.length}</span></h3>`);
+    if(!items.length) out.push(`<div class="empty">Volná pozice.</div>`);
+    for(const a of items){
+      const [cls, txt] = statusOf(a);
+      out.push(`<div class="ad-row">
+        <img src="${escapeHtml(imgSrc(a.image))}" alt="">
+        <div style="min-width:0">
+          <div class="nm">${escapeHtml(a.sponsor)}</div>
+          <div class="mt"><span class="pill ${cls}">${escapeHtml(txt)}</span>váha ${a.weight || 1} · ${escapeHtml(a.url)}</div>
+        </div>
+        <div class="acts">
+          <button class="btn ghost small" type="button" data-edit="${escapeHtml(a.id)}">Upravit</button>
+          <button class="btn ghost small" type="button" data-toggle="${escapeHtml(a.id)}">${a.active === false ? "Zapnout" : "Vypnout"}</button>
+          <button class="btn ghost small danger" type="button" data-del="${escapeHtml(a.id)}">Smazat</button>
+        </div>
+      </div>`);
+    }
+    out.push(`</div>`);
+  }
+  $("adList").innerHTML = out.join("");
+}
+
+$("adList").addEventListener("click", async e => {
+  const btn = e.target.closest("button");
+  if(!btn) return;
+  if(btn.dataset.edit) return startEdit(btn.dataset.edit);
+  if(btn.dataset.toggle){
+    const a = ads.find(x => x.id === btn.dataset.toggle);
+    if(!a) return;
+    const next = ads.map(x => x.id === a.id ? { ...x, active: x.active === false } : x);
+    await saveAds(next, [], `reklama: ${a.active === false ? "zapnuto" : "vypnuto"} – ${a.sponsor}`);
+    return;
+  }
+  if(btn.dataset.del){
+    // Potvrzení přímo v tlačítku: první klik se zeptá, druhý maže.
+    if(btn.dataset.confirm !== "1"){
+      btn.dataset.confirm = "1";
+      btn.textContent = "Opravdu smazat?";
+      setTimeout(() => { if(btn.isConnected){ btn.dataset.confirm = ""; btn.textContent = "Smazat"; } }, 4000);
+      return;
+    }
+    const a = ads.find(x => x.id === btn.dataset.del);
+    if(!a) return;
+    const removals = [...new Set([a.image, a.image_mobile].filter(Boolean))].map(path => ({ path, remove: true }));
+    await saveAds(ads.filter(x => x.id !== a.id), removals, `reklama: smazáno – ${a.sponsor}`);
+  }
+});
+
+async function saveAds(next, extraFiles, message){
+  setMsg("formMsg", "Ukládám na GitHub…");
+  document.querySelectorAll("#viewAdmin button").forEach(b => b.disabled = true);
+  try {
+    const json = JSON.stringify({ ads: next }, null, 2) + "\n";
+    await commitFiles([...extraFiles, { path: ADS_PATH, base64: utf8ToB64(json) }], message);
+    ads = next;
+    renderList();
+    setMsg("formMsg", "Uloženo. Na webu se změna objeví do 1–2 minut.", "ok");
+    return true;
+  } catch(err) {
+    setMsg("formMsg", explainError(err), "err");
+    return false;
+  } finally {
+    document.querySelectorAll("#viewAdmin button").forEach(b => b.disabled = false);
+  }
+}
+
+// ── Formulář ─────────────────────────────────────────────────────────────
+const fileCache = { fImg: null, fImgM: null }; // { dataUrl, base64, ext, w, h, size }
+
+function readImage(file){
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onerror = () => reject(new Error("Soubor nejde přečíst."));
+    r.onload = () => {
+      const img = new Image();
+      img.onload = () => resolve({
+        dataUrl: r.result, base64: r.result.split(",")[1],
+        ext: { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" }[file.type] || "jpg",
+        w: img.naturalWidth, h: img.naturalHeight, size: file.size,
+      });
+      img.onerror = () => reject(new Error("Soubor není obrázek."));
+      img.src = r.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+function describeImage(info, want){
+  const kb = Math.round(info.size / 1024);
+  const ratio = info.w / info.h, wantRatio = want[0] / want[1];
+  const warns = [];
+  if(Math.abs(ratio - wantRatio) / wantRatio > 0.08) warns.push(`poměr stran nesedí, okraje se oříznou (doporučeno ${want[0]} × ${want[1]})`);
+  if(info.size > 300 * 1024) warns.push("přes 300 kB, web se bude načítat pomaleji");
+  return { text: `${info.w} × ${info.h} px · ${kb} kB` + (warns.length ? " – " + warns.join(", ") : ""), warn: warns.length > 0 };
+}
+function refreshSlotUi(){
+  const s = SLOTS[$("fSlot").value];
+  $("slotSpec").textContent = `Doporučené rozměry: počítač ${s.d[0]} × ${s.d[1]} px, mobil ${s.m[0]} × ${s.m[1]} px. JPG, PNG nebo WebP do 300 kB.`;
+  $("preview").style.aspectRatio = `${s.d[0]} / ${s.d[1]}`;
+  for(const [id, kind, infoId] of [["fImg", "d", "imgInfo"], ["fImgM", "m", "imgMInfo"]]){
+    const info = fileCache[id];
+    if(!info) continue;
+    const d = describeImage(info, s[kind]);
+    $(infoId).textContent = d.text;
+    $(infoId).className = "hint" + (d.warn ? " warn" : "");
+  }
+  const editing = editingId && ads.find(a => a.id === editingId);
+  const src = fileCache.fImg ? fileCache.fImg.dataUrl : editing ? imgSrc(editing.image) : null;
+  $("preview").innerHTML = src ? `<img src="${escapeHtml(src)}" alt="">` : "Náhled banneru";
+}
+for(const id of ["fImg", "fImgM"]){
+  $(id).addEventListener("change", async () => {
+    const file = $(id).files[0];
+    fileCache[id] = null;
+    const infoId = id === "fImg" ? "imgInfo" : "imgMInfo";
+    if(file){
+      if(file.size > MAX_IMG_BYTES){
+        $(id).value = "";
+        $(infoId).textContent = `Soubor má ${Math.round(file.size / 1024)} kB, limit je ${MAX_IMG_BYTES / 1024} kB. Zmenšete ho prosím (např. squoosh.app).`;
+        $(infoId).className = "hint warn";
+        return refreshSlotUi();
+      }
+      try { fileCache[id] = await readImage(file); }
+      catch(err) { $(id).value = ""; $(infoId).textContent = err.message; $(infoId).className = "hint warn"; }
+    } else {
+      $(infoId).textContent = id === "fImgM" ? "Nepovinné. Bez něj se použije obrázek pro počítač." : "";
+      $(infoId).className = "hint";
+    }
+    refreshSlotUi();
+  });
+}
+$("fSlot").addEventListener("change", refreshSlotUi);
+
+function resetForm(){
+  editingId = null;
+  $("adForm").reset();
+  fileCache.fImg = fileCache.fImgM = null;
+  $("imgInfo").textContent = "";
+  $("imgMInfo").textContent = "Nepovinné. Bez něj se použije obrázek pro počítač.";
+  $("imgInfo").className = $("imgMInfo").className = "hint";
+  $("formTitle").textContent = "Nový banner";
+  $("saveBtn").textContent = "Uložit a zveřejnit";
+  $("cancelEdit").hidden = true;
+  refreshSlotUi();
+}
+function startEdit(id){
+  const a = ads.find(x => x.id === id);
+  if(!a) return;
+  resetForm();
+  editingId = id;
+  $("fSponsor").value = a.sponsor;
+  $("fSlot").value = a.slot;
+  $("fUrl").value = a.url;
+  $("fFrom").value = a.from || "";
+  $("fTo").value = a.to || "";
+  $("fWeight").value = a.weight || 1;
+  $("fActive").checked = a.active !== false;
+  $("formTitle").textContent = "Úprava: " + a.sponsor;
+  $("saveBtn").textContent = "Uložit změny";
+  $("imgInfo").textContent = "Nový obrázek nahrajte jen pokud ho měníte.";
+  $("cancelEdit").hidden = false;
+  setMsg("formMsg", "");
+  refreshSlotUi();
+  $("fSponsor").focus();
+}
+$("cancelEdit").addEventListener("click", () => { resetForm(); setMsg("formMsg", ""); });
+
+$("adForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const sponsor = $("fSponsor").value.trim();
+  const url = $("fUrl").value.trim();
+  const from = $("fFrom").value, to = $("fTo").value;
+  const existing = editingId ? ads.find(a => a.id === editingId) : null;
+  if(!sponsor) return setMsg("formMsg", "Vyplňte jméno partnera.", "err");
+  let parsed;
+  try { parsed = new URL(url); } catch(err) {}
+  if(!parsed || !/^https?:$/.test(parsed.protocol)) return setMsg("formMsg", "Odkaz musí být celá adresa začínající https://", "err");
+  if(!existing && !fileCache.fImg && !fileCache.fImgM) return setMsg("formMsg", "Nahrajte obrázek banneru.", "err");
+  if(from && to && from > to) return setMsg("formMsg", "Datum „do“ je dřív než „od“.", "err");
+
+  const id = existing ? existing.id : `${slugify(sponsor)}-${Date.now().toString(36)}`;
+  const stamp = Date.now().toString(36); // nový název souboru = žádná stará verze z cache
+  const files = [];
+  let image = existing ? existing.image : null;
+  let imageMobile = existing ? existing.image_mobile : null;
+  const desk = fileCache.fImg || (!existing ? fileCache.fImgM : null);
+  const mob = fileCache.fImgM;
+  if(desk){
+    const path = `${IMG_DIR}/${id}-${stamp}-desktop.${desk.ext}`;
+    files.push({ path, base64: desk.base64 });
+    localPreviews[path] = desk.dataUrl;
+    image = path;
+  }
+  if(mob){
+    const path = `${IMG_DIR}/${id}-${stamp}-mobile.${mob.ext}`;
+    files.push({ path, base64: mob.base64 });
+    localPreviews[path] = mob.dataUrl;
+    imageMobile = path;
+  } else if(desk && (!existing || existing.image_mobile === existing.image)){
+    // Mobil neměl vlastní obrázek → sdílí ten nový pro počítač.
+    imageMobile = image;
+  }
+  // Staré obrázky, které nahradil nový, z repozitáře smažeme.
+  if(existing){
+    const keep = new Set([image, imageMobile]);
+    for(const old of new Set([existing.image, existing.image_mobile])){
+      if(old && !keep.has(old)) files.push({ path: old, remove: true });
+    }
+  }
+
+  const ad = { id, sponsor, slot: $("fSlot").value, image, image_mobile: imageMobile || image, url };
+  if(from) ad.from = from;
+  if(to) ad.to = to;
+  ad.weight = Math.min(10, Math.max(1, parseInt($("fWeight").value, 10) || 1));
+  ad.active = $("fActive").checked;
+
+  const next = existing ? ads.map(a => a.id === id ? ad : a) : [...ads, ad];
+  const ok = await saveAds(next, files, `reklama: ${existing ? "úprava" : "nový banner"} – ${sponsor}`);
+  if(ok) resetForm();
+});
+
+// ── Start ────────────────────────────────────────────────────────────────
+$("repoName").textContent = `${CONFIG.owner}/${CONFIG.repo}`;
+(async () => {
+  try { token = sessionStorage.getItem(SESSION_KEY); } catch(e) {}
+  if(token) return openAdmin();
+  if(location.hash === "#setup") return show("viewSetup");
+  try {
+    show((await fetchKeyBlob()) ? "viewLogin" : "viewSetup");
+  } catch(e) {
+    show("viewLogin");
+  }
+})();
+</script>
+</body>
+</html>

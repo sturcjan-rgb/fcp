@@ -297,6 +297,34 @@
     .filter-select{width:100%;}
     .search-wrap{width:100%;min-width:0;flex:none;}
   }
+
+  /* ── Reklamní pozice (data/ads.json, spravuje se v /admin) ──
+     header = nad posledním zápasem, mid = uprostřed výpisu, end = pod výpisem.
+     Poměr stran je pevný, obrázek partnera se do něj ořízne (object-fit). */
+  .ad-slot{margin:0 0 28px;}
+  .ad-slot[data-ad-slot="header"] + .section-title{margin-top:0;}
+  .ad-slot[data-ad-slot="end"]{margin:36px 0 0;}
+  .match-list .ad-slot{margin:6px 0;}
+  .ad{
+    position:relative;display:block;overflow:hidden;
+    border-radius:var(--radius);border:1px solid var(--line);background:var(--card);
+    transition:border-color .15s ease;
+  }
+  .ad:hover{border-color:var(--gold);}
+  .ad img{display:block;width:100%;height:100%;object-fit:cover;}
+  .ad-slot[data-ad-slot="header"] .ad{aspect-ratio:8/1;}
+  .ad-slot[data-ad-slot="mid"] .ad{aspect-ratio:10/1;}
+  .ad-slot[data-ad-slot="end"] .ad{aspect-ratio:4/1;}
+  .ad-label{
+    position:absolute;top:6px;right:6px;
+    font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#fff;background:rgba(0,0,0,.45);padding:2px 6px;border-radius:4px;
+  }
+  @media (max-width:640px){
+    .ad-slot[data-ad-slot="header"] .ad{aspect-ratio:4/1;}
+    .ad-slot[data-ad-slot="mid"] .ad{aspect-ratio:3/1;}
+    .ad-slot[data-ad-slot="end"] .ad{aspect-ratio:3/2;}
+  }
 </style>
 <script>
   /* Nastaví režim co nejdřív (ještě před vykreslením těla), aby při načtení
@@ -349,6 +377,8 @@
 
 <main>
 
+  <div class="ad-slot" data-ad-slot="header" hidden></div>
+
   <div class="section-title" id="heroSectionTitle">Poslední zápas</div>
   <div class="hero-match" id="heroMatch"></div>
 
@@ -370,6 +400,8 @@
   <div class="cards-row" id="cardsRow"></div>
 
   <div class="match-list" id="matchList"></div>
+
+  <div class="ad-slot" data-ad-slot="end" hidden></div>
 
 </main>
 
@@ -578,7 +610,7 @@ function renderList(){
     list.innerHTML = `<div class="empty-box">Žádný zápas neodpovídá filtru.</div>`;
     return;
   }
-  list.innerHTML = rows.map((m) => {
+  const html = rows.map((m) => {
     const playable = !!m.embed;
     const action = playable
       ? `<button class="btn-play" type="button">${PLAY_ICON}Přehrát</button>`
@@ -590,7 +622,79 @@ function renderList(){
         <div class="m-phase">${m.phase}</div>
         <div class="m-action">${action}</div>
       </div>`;
-  }).join("");
+  });
+  // Reklama "mid" za 6. řádkem; u kratšího výpisu zhruba v polovině.
+  if(rows.length >= 2){
+    html.splice(Math.min(MID_AD_AFTER, Math.ceil(rows.length / 2)), 0, `<div class="ad-slot" data-ad-slot="mid" hidden></div>`);
+  }
+  list.innerHTML = html.join("");
+  fillAdSlots();
+}
+
+// ── Reklamy ──────────────────────────────────────────────────────────────
+// data/ads.json zapisuje administrace v /admin. Při každém načtení stránky se
+// pro každou pozici vybere jeden banner (náhodně podle váhy) z těch, které
+// jsou zapnuté a v termínu. Když soubor chybí nebo je prázdný, pozice zůstanou
+// skryté a web jede dál bez reklam.
+const MID_AD_AFTER = 6;
+const AD_SLOTS = ["header", "mid", "end"];
+const __adPicks = {};
+
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+}
+function localISODate(d){
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function pickWeighted(list){
+  const total = list.reduce((s, a) => s + a.weight, 0);
+  let r = Math.random() * total;
+  for(const a of list){ if((r -= a.weight) < 0) return a; }
+  return list[list.length - 1] || null;
+}
+function adHtml(a){
+  let href;
+  try {
+    const u = new URL(a.url);
+    if(u.protocol !== "https:" && u.protocol !== "http:") return "";
+    u.searchParams.set("utm_source", "fcpisek-tv");
+    u.searchParams.set("utm_medium", "banner");
+    u.searchParams.set("utm_campaign", a.slot);
+    href = u.href;
+  } catch(e) { return ""; }
+  const mobile = a.image_mobile || a.image;
+  return `<a class="ad" href="${escapeHtml(href)}" target="_blank" rel="sponsored noopener">
+      <picture>
+        <source media="(max-width:640px)" srcset="${escapeHtml(mobile)}">
+        <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.sponsor)}"${a.slot === "header" ? "" : ` loading="lazy"`}>
+      </picture>
+      <span class="ad-label">Partner</span>
+    </a>`;
+}
+function fillAdSlots(){
+  document.querySelectorAll("[data-ad-slot]").forEach(el => {
+    const a = __adPicks[el.dataset.adSlot];
+    const html = a ? adHtml(a) : "";
+    if(el.innerHTML !== html) el.innerHTML = html;
+    el.hidden = !html;
+  });
+}
+async function loadAds(){
+  let ads = [];
+  try {
+    const res = await fetch("data/ads.json", { cache: "no-store" });
+    if(!res.ok) return;
+    ads = (await res.json()).ads || [];
+  } catch(err) {
+    console.warn("Reklamy se nepodařilo načíst (pokračuji bez nich):", err);
+    return;
+  }
+  const today = localISODate(new Date());
+  const live = ads.filter(a => a && a.image && a.url && a.active !== false
+    && (!a.from || a.from <= today) && (!a.to || a.to >= today))
+    .map(a => ({ ...a, weight: Math.max(1, Number(a.weight) || 1) }));
+  for(const slot of AD_SLOTS) __adPicks[slot] = pickWeighted(live.filter(a => a.slot === slot));
+  fillAdSlots();
 }
 
 let __withStatus = [];
@@ -672,6 +776,7 @@ async function loadMatches(){
 }
 
 loadMatches();
+loadAds();
 </script>
 
 </body>
