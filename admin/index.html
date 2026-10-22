@@ -143,7 +143,7 @@
           <div class="f"><label for="fImg">Obrázek – počítač</label><input id="fImg" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgInfo"></span></div>
           <div class="f"><label for="fImgM">Obrázek – mobil</label><input id="fImgM" type="file" accept="image/jpeg,image/png,image/webp"><span class="hint" id="imgMInfo">Nepovinné. Bez něj se použije obrázek pro počítač.</span></div>
           <div class="preview" id="preview">Náhled banneru</div>
-          <div class="f full"><label for="fUrl">Odkaz po kliknutí</label><input id="fUrl" type="url" required placeholder="https://www.partner.cz"></div>
+          <div class="f full"><label for="fUrl">Odkaz po kliknutí</label><input id="fUrl" type="url" placeholder="https://www.partner.cz"><span class="hint">Nepovinné. Bez odkazu se banner zobrazí jen jako obrázek.</span></div>
           <div class="f"><label for="fFrom">Zobrazovat od</label><input id="fFrom" type="date"></div>
           <div class="f"><label for="fTo">do (včetně)</label><input id="fTo" type="date"></div>
           <div class="f"><label for="fWeight">Váha v rotaci</label><input id="fWeight" type="number" min="1" max="10" value="1"></div>
@@ -423,7 +423,7 @@ function renderList(){
         <img src="${escapeHtml(imgSrc(a.image))}" alt="">
         <div style="min-width:0">
           <div class="nm">${escapeHtml(a.sponsor)}</div>
-          <div class="mt"><span class="pill ${cls}">${escapeHtml(txt)}</span>váha ${a.weight || 1} · ${escapeHtml(a.url)}</div>
+          <div class="mt"><span class="pill ${cls}">${escapeHtml(txt)}</span>váha ${a.weight || 1} · ${a.url ? escapeHtml(a.url) : "bez odkazu"}</div>
         </div>
         <div class="acts">
           <button class="btn ghost small" type="button" data-edit="${escapeHtml(a.id)}">Upravit</button>
@@ -566,7 +566,7 @@ function startEdit(id){
   editingId = id;
   $("fSponsor").value = a.sponsor;
   $("fSlot").value = a.slot;
-  $("fUrl").value = a.url;
+  $("fUrl").value = a.url || "";
   $("fFrom").value = a.from || "";
   $("fTo").value = a.to || "";
   $("fWeight").value = a.weight || 1;
@@ -588,9 +588,11 @@ $("adForm").addEventListener("submit", async e => {
   const from = $("fFrom").value, to = $("fTo").value;
   const existing = editingId ? ads.find(a => a.id === editingId) : null;
   if(!sponsor) return setMsg("formMsg", "Vyplňte jméno partnera.", "err");
-  let parsed;
-  try { parsed = new URL(url); } catch(err) {}
-  if(!parsed || !/^https?:$/.test(parsed.protocol)) return setMsg("formMsg", "Odkaz musí být celá adresa začínající https://", "err");
+  if(url){
+    let parsed;
+    try { parsed = new URL(url); } catch(err) {}
+    if(!parsed || !/^https?:$/.test(parsed.protocol)) return setMsg("formMsg", "Odkaz musí být celá adresa začínající https://, nebo nechte pole prázdné.", "err");
+  }
   if(!existing && !fileCache.fImg && !fileCache.fImgM) return setMsg("formMsg", "Nahrajte obrázek banneru.", "err");
   if(from && to && from > to) return setMsg("formMsg", "Datum „do“ je dřív než „od“.", "err");
 
@@ -625,7 +627,8 @@ $("adForm").addEventListener("submit", async e => {
     }
   }
 
-  const ad = { id, sponsor, slot: $("fSlot").value, image, image_mobile: imageMobile || image, url };
+  const ad = { id, sponsor, slot: $("fSlot").value, image, image_mobile: imageMobile || image };
+  if(url) ad.url = url;
   if(from) ad.from = from;
   if(to) ad.to = to;
   ad.weight = Math.min(10, Math.max(1, parseInt($("fWeight").value, 10) || 1));

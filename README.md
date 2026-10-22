@@ -136,7 +136,7 @@ GitHub Pages ── za 1–2 minuty je změna na webu
 index.html ── loadAds() vybere bannery v termínu a vloží je do pozic
 ```
 
-Odkazy dostanou UTM parametry (`utm_source=fcpisek-tv&utm_medium=banner&utm_campaign=<pozice>`),
+Odkaz je nepovinný; banner bez odkazu se zobrazí jen jako obrázek. Odkazy dostanou UTM parametry (`utm_source=fcpisek-tv&utm_medium=banner&utm_campaign=<pozice>`),
 takže partner vidí návštěvy z webu ve svém Google Analytics. Když
 `data/ads.json` chybí nebo je prázdný, pozice se nezobrazí.
 
